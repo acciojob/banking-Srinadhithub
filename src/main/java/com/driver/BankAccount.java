@@ -42,7 +42,7 @@ this.minBalance=minBalance;
         //If it is not possible, throw "Account Number can not be generated" exception
         StringBuilder str= new StringBuilder();
 
-            if (digits * 9 < sum) throw new AccountNumberException();
+            if (digits * 9 < sum) throw new Exception("Account Number can not be generated");
            else{
                while (sum>9) {
                    str.append('9');
@@ -62,7 +62,7 @@ this.minBalance=minBalance;
 
     public void withdraw(double amount) throws Exception  {
         // Remember to throw "Insufficient Balance" exception, if the remaining amount would be less than minimum balance
-                if (amount - balance < minBalance) throw new InsufficientBalanceException();
+                if (amount - balance < minBalance) throw new Exception("Insufficient Balance");
                else  balance-=amount;
 
     }
