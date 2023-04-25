@@ -40,27 +40,20 @@ this.minBalance=minBalance;
         //Each digit of an account number can lie between 0 and 9 (both inclusive)
         //Generate account number having given number of 'digits' such that the sum of digits is equal to 'sum'
         //If it is not possible, throw "Account Number can not be generated" exception
+        StringBuilder str= new StringBuilder();
 
-        return null;
-    }
-    static int countRec(int n, int sum)
-    {
-        // Base case
-        if (n == 0)
-            return sum == 0 ?1:0;
-
-        if (sum == 0)
-            return 1;
-
-        // Initialize answer
-        int ans = 0;
-
-        // Traverse through every digit and count
-        // numbers beginning with it using recursion
-        for (int i=0; i<=9; i++)
-            if (sum-i >= 0)
-                ans += countRec(n-1, sum-i);
-        return ans;
+            if (digits * 9 < sum) throw new AccountNumberException();
+           else{
+               while (sum>9) {
+                   str.append('9');
+                   sum -= 9;
+               }
+                   if (sum != 0) {
+                       str.append(sum);
+                   }
+                   while (str.length() < digits) str.append('0');
+            }
+        return str.toString();
     }
     public void deposit(double amount) {
         //add amount to balance
@@ -69,13 +62,9 @@ this.minBalance=minBalance;
 
     public void withdraw(double amount) throws Exception  {
         // Remember to throw "Insufficient Balance" exception, if the remaining amount would be less than minimum balance
-            try {
                 if (amount - balance < minBalance) throw new InsufficientBalanceException();
-                 balance-=amount;
-            }
-            catch (InsufficientBalanceException ex){
-                System.out.println("Insuufficient Balance");
-            }
+               else  balance-=amount;
+
     }
 
 }
