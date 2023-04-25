@@ -7,7 +7,33 @@ public class BankAccount {
     private double minBalance;
 
     public BankAccount(String name, double balance, double minBalance) {
+this.name=name;
+this.balance=balance;
+this.minBalance=minBalance;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public double getMinBalance() {
+        return minBalance;
+    }
+
+    public void setMinBalance(double minBalance) {
+        this.minBalance = minBalance;
     }
 
     public String generateAccountNumber(int digits, int sum) throws Exception{
@@ -17,15 +43,39 @@ public class BankAccount {
 
         return null;
     }
+    static int countRec(int n, int sum)
+    {
+        // Base case
+        if (n == 0)
+            return sum == 0 ?1:0;
 
+        if (sum == 0)
+            return 1;
+
+        // Initialize answer
+        int ans = 0;
+
+        // Traverse through every digit and count
+        // numbers beginning with it using recursion
+        for (int i=0; i<=9; i++)
+            if (sum-i >= 0)
+                ans += countRec(n-1, sum-i);
+        return ans;
+    }
     public void deposit(double amount) {
         //add amount to balance
-
+           balance+=amount;
     }
 
-    public void withdraw(double amount) throws Exception {
+    public void withdraw(double amount) throws Exception  {
         // Remember to throw "Insufficient Balance" exception, if the remaining amount would be less than minimum balance
-
+            try {
+                if (amount - balance < minBalance) throw new InsufficientBalanceException();
+                 balance-=amount;
+            }
+            catch (InsufficientBalanceException ex){
+                System.out.println("Insuufficient Balance");
+            }
     }
 
 }
