@@ -66,30 +66,23 @@ public class CurrentAccount extends BankAccount{
         int maxCount = count[(int)c_max-(int)'A'];
         if(maxCount>(N+1)/2)
             return "";
-        String res = "";
-        for(int i=0;i<N;i++)
-        {
-            res +=' ';
-        }
-        int ind =0;
-        while(maxCount>0)
-        {
-            res = res.substring(0,ind)+c_max+res.substring(ind+1);
-            ind = ind+2;
-            maxCount--;
-        }
-        count[(int)c_max-(int)'A'] = 0;
-        for(int i =0;i<26;i++)
-        {
-            while(count[i]>0)
-            {
-                ind=(ind>=N)?1:ind;
-                res = res.substring(0,ind)+(char)((int)'A'+i)+res.substring(ind+1);
-                ind+=2;
-                count[i]--;
+     char res[] = new char[N];
+       int i=0;
+       while(count[c_max-'A']>0){
+           res[i]=c_max;
+           i+=2;
+           count[c_max-'A']--;
+       }
+        if(i==N) i=1;
+        for(int j=0;j<26;j++){
+            while(count[j]>0) {
+                res[i%N] = (char) (j + 'A');
+                i+=2;
+                count[j]--;
             }
         }
-        return res;
+
+        return new String(res);
     }
     public boolean isNumberValid(String licenseId)
     {
